@@ -4,7 +4,7 @@
    ======================================== */
 
 .writing-page {
-  max-width: 700px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 2rem 1rem;
 }
@@ -266,4 +266,61 @@
   height: auto;
   border-radius: var(--radius-sm);
   margin: 1.5rem 0;
+}
+
+/* Full-content blog post on listing page */
+.writing-item-full {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.writing-item-full:first-child {
+  border-top: 1px solid var(--color-border);
+}
+
+.writing-item-full .writing-date {
+  margin-bottom: 0.5rem;
+}
+
+.writing-item-full .writing-title {
+  font-size: var(--text-2xl);
+  margin-bottom: 1.5rem;
+}
+
+/* Image grid - side by side */
+.post-img-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.post-img {
+  max-width: 200px;
+  height: auto;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+@media (max-width: 736px) {
+  .post-img {
+    max-width: 140px;
+  }
+}
+
+/* Lightbox overlay */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.lightbox img {
+  max-width: 70vw;
+  max-height: 70vh;
+  border-radius: var(--radius-sm);
 }

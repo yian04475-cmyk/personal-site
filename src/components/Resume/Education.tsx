@@ -11,7 +11,7 @@ export default function Education({ data }: EducationProps) {
     <div className="education">
       <div className="link-to" id="education" />
       <div className="title">
-        <h3>Education</h3>
+        <h3>教育背景</h3>
       </div>
       {data.map((degree) => (
         <Degree data={degree} key={degree.school} />

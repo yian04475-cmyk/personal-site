@@ -1,14 +1,13 @@
 import type { Metadata } from 'next';
 
-import ContactIcons from '@/components/Contact/ContactIcons';
-import EmailLink from '@/components/Contact/EmailLink';
-
+import ContactContent from './ContactContent';
+import ContactStats from './ContactStats';
 import PageWrapper from '@/components/Template/PageWrapper';
 import { createPageMetadata } from '@/lib/metadata';
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'Contact',
-  description: "Contact Michael D'Angelo via email @ hi@mldangelo.com",
+  title: '联系',
+  description: '联系 AnYi',
   path: '/contact/',
 });
 
@@ -17,21 +16,10 @@ export default function ContactPage() {
     <PageWrapper>
       <section className="contact-page">
         <header className="contact-header">
-          <h1 className="page-title">Get in Touch</h1>
+          <h1 className="page-title">联系方式</h1>
         </header>
-
-        <div className="contact-content">
-          <div className="contact-email-block">
-            <EmailLink />
-            <p className="contact-hint">Usually respond within 24 hours</p>
-          </div>
-
-          <div className="contact-divider">
-            <span>or find me on</span>
-          </div>
-
-          <ContactIcons />
-        </div>
+        <ContactContent />
+        <ContactStats />
       </section>
     </PageWrapper>
   );

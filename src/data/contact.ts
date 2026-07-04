@@ -1,53 +1,32 @@
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faAngellist } from '@fortawesome/free-brands-svg-icons/faAngellist';
-import { faFacebookF } from '@fortawesome/free-brands-svg-icons/faFacebookF';
-import { faGithub } from '@fortawesome/free-brands-svg-icons/faGithub';
-import { faInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram';
-import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons/faLinkedinIn';
-import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter';
-import { faEnvelope } from '@fortawesome/free-regular-svg-icons/faEnvelope';
+import { faQq } from '@fortawesome/free-brands-svg-icons/faQq';
+import { faWeixin } from '@fortawesome/free-brands-svg-icons/faWeixin';
+import { faXTwitter } from '@fortawesome/free-brands-svg-icons/faXTwitter';
 
 export interface ContactItem {
   link: string;
   label: string;
   icon: IconDefinition;
+  copyText?: string;
 }
 
 const data: ContactItem[] = [
   {
-    link: 'https://www.linkedin.com/in/michaelldangelo',
-    label: 'LinkedIn',
-    icon: faLinkedinIn,
+    link: '#',
+    label: '微信',
+    icon: faWeixin,
+    copyText: 'dddzzz-IoI-',
   },
   {
-    link: 'https://github.com/mldangelo',
-    label: 'Github',
-    icon: faGithub,
+    link: '#',
+    label: 'QQ',
+    icon: faQq,
+    copyText: '2711948436',
   },
   {
-    link: 'https://x.com/dangelosaurus',
-    label: 'X',
-    icon: faTwitter,
-  },
-  {
-    link: 'https://angel.co/michael-d-angelo',
-    label: 'Angel List',
-    icon: faAngellist,
-  },
-  {
-    link: 'https://www.instagram.com/dangelosaurus/',
-    label: 'Instagram',
-    icon: faInstagram,
-  },
-  {
-    link: 'https://facebook.com/d',
-    label: 'Facebook',
-    icon: faFacebookF,
-  },
-  {
-    link: 'mailto:michael.l.dangelo@gmail.com',
-    label: 'Email',
-    icon: faEnvelope,
+    link: 'https://x.com/anyi667',
+    label: 'X (Twitter)',
+    icon: faXTwitter,
   },
 ];
 

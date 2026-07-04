@@ -15,10 +15,10 @@ import {
 const PROJECTS_URL = `${SITE_URL}/projects/`;
 
 const PROJECTS_DESCRIPTION =
-  "Early projects and experiments from Michael D'Angelo (2015 and earlier).";
+  '邓兆俊的项目作品集。';
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'Archive',
+  title: '项目',
   description: PROJECTS_DESCRIPTION,
   path: '/projects/',
 });
@@ -33,27 +33,27 @@ export default function ProjectsPage() {
         nodes={[
           collectionPageNode({
             url: PROJECTS_URL,
-            name: 'Archive',
+            name: '项目',
             description: PROJECTS_DESCRIPTION,
             hasBreadcrumb: true,
           }),
           breadcrumbNode(PROJECTS_URL, [
-            { name: 'Home', url: HOME_URL },
-            { name: 'Archive', url: PROJECTS_URL },
+            { name: '首页', url: HOME_URL },
+            { name: '项目', url: PROJECTS_URL },
           ]),
         ]}
       />
       <section className="projects-page">
         <header className="projects-header">
-          <h1 className="page-title">Archive</h1>
+          <h1 className="page-title">项目作品</h1>
           <p className="page-subtitle">
-            Early projects and experiments from my student years
+            我的项目与作品集
           </p>
         </header>
 
         {featuredProjects.length > 0 && (
           <section className="projects-featured">
-            <h2 className="projects-section-title">Hackathons &amp; Awards</h2>
+            <h2 className="projects-section-title">精选项目</h2>
             <div className="projects-grid projects-grid--featured">
               {featuredProjects.map((project) => (
                 <Cell data={project} key={project.title} />
@@ -64,7 +64,7 @@ export default function ProjectsPage() {
 
         {otherProjects.length > 0 && (
           <section className="projects-other">
-            <h2 className="projects-section-title">Side Projects</h2>
+            <h2 className="projects-section-title">其他项目</h2>
             <div className="projects-grid">
               {otherProjects.map((project) => (
                 <Cell data={project} key={project.title} />

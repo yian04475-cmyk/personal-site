@@ -1,7 +1,6 @@
 'use client';
 
 import Markdown from 'markdown-to-jsx';
-import Image from 'next/image';
 
 interface PostContentProps {
   content: string;
@@ -14,22 +13,12 @@ export default function PostContent({ content }: PostContentProps) {
         overrides: {
           img: {
             component: ({ alt, src }: { alt?: string; src?: string }) => {
-              if (!src) {
-                return null;
-              }
-
+              if (!src) return null;
               return (
-                <Image
-                  src={src}
-                  alt={alt || ''}
-                  width={1200}
-                  height={630}
-                  loading="lazy"
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                  }}
-                />
+                <a href={src || '#'} target="_blank" rel="noopener noreferrer">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={src} alt={alt || ''} loading="lazy" className="post-img" />
+                </a>
               );
             },
           },

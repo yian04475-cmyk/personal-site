@@ -154,6 +154,21 @@
   flex-wrap: wrap;
 }
 
+.hero-cta-mobile {
+  display: none;
+}
+
+@media (max-width: 736px) {
+  .hero-cta-desktop {
+    display: none;
+  }
+
+  .hero-cta-mobile {
+    display: flex;
+    justify-content: center;
+  }
+}
+
 /* Background */
 .hero-bg {
   position: absolute;

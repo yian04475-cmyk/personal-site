@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Raleway, Source_Sans_3 } from 'next/font/google';
+import { Noto_Sans_SC, ZCOOL_XiaoWei } from 'next/font/google';
 import Script from 'next/script';
 
 import { SiteSchema } from '@/components/Schema';
@@ -16,7 +16,7 @@ import {
 } from '@/lib/utils';
 import './tailwind.css';
 
-const sourceSans = Source_Sans_3({
+const notoSans = Noto_Sans_SC({
   weight: ['400', '700'],
   subsets: ['latin'],
   variable: '--font-source-sans',
@@ -25,8 +25,8 @@ const sourceSans = Source_Sans_3({
   adjustFontFallback: true,
 });
 
-const raleway = Raleway({
-  weight: ['400', '800'],
+const zcoolXiaoWei = ZCOOL_XiaoWei({
+  weight: ['400'],
   subsets: ['latin'],
   variable: '--font-raleway',
   display: 'swap',
@@ -42,20 +42,22 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   keywords: [
     AUTHOR_NAME,
-    'OpenAI',
-    'Promptfoo',
-    'agent security',
-    'LLM security',
-    'machine learning',
-    'startup founder',
-    'YC',
+    '个人网站',
+    '大学生',
+    '技术博客',
+    '项目作品',
   ],
   authors: [{ name: AUTHOR_NAME }],
   creator: AUTHOR_NAME,
+  icons: {
+    icon: '/images/me.jpg',
+    shortcut: '/images/me.jpg',
+    apple: '/images/me.jpg',
+  },
   metadataBase: new URL(SITE_URL),
   openGraph: {
     type: 'website',
-    locale: 'en_US',
+    locale: 'zh_CN',
     url: `${SITE_URL}/`,
     siteName: AUTHOR_NAME,
     title: AUTHOR_NAME,
@@ -97,8 +99,8 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang="en"
-      className={`${sourceSans.variable} ${raleway.variable}`}
+      lang="zh-CN"
+      className={`${notoSans.variable} ${zcoolXiaoWei.variable}`}
       suppressHydrationWarning
     >
       <head>

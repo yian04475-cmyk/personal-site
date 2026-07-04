@@ -3,11 +3,9 @@
 import { useEffect, useRef, useState } from 'react';
 
 const sections = [
-  { name: 'Experience', id: 'experience' },
-  { name: 'Education', id: 'education' },
-  { name: 'Skills', id: 'skills' },
-  { name: 'Courses', id: 'courses' },
-  { name: 'References', id: 'references' },
+  { name: '工作经历', id: 'experience' },
+  { name: '教育背景', id: 'education' },
+  { name: '技能', id: 'skills' },
 ] as const;
 
 type SectionId = (typeof sections)[number]['id'];
@@ -81,7 +79,7 @@ export default function ResumeNav() {
   }, []);
 
   return (
-    <nav className="resume-nav" aria-label="Resume sections">
+    <nav className="resume-nav" aria-label="简历导航">
       {sections.map((section) => (
         <a
           key={section.id}

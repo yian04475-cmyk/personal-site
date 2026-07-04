@@ -11,11 +11,15 @@ export default function Experience({ data }: ExperienceProps) {
     <div className="experience">
       <div className="link-to" id="experience" />
       <div className="title">
-        <h3>Experience</h3>
+        <h3>工作经历</h3>
       </div>
-      {data.map((job) => (
-        <Job data={job} key={`${job.name}-${job.position}`} />
-      ))}
+      {data.length === 0 ? (
+        <p className="text-muted">正在寻找机遇···</p>
+      ) : (
+        data.map((job) => (
+          <Job data={job} key={`${job.name}-${job.position}`} />
+        ))
+      )}
     </div>
   );
 }

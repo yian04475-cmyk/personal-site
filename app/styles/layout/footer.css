@@ -30,10 +30,10 @@
   .footer-content {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    text-align: left;
-    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 4rem;
   }
 }
 
@@ -123,6 +123,18 @@
   color: var(--color-accent);
 }
 
+.footer-bottom {
+  text-align: center;
+  padding: 1.5rem;
+  border-top: 1px solid var(--color-border);
+  margin-top: 1rem;
+}
+
+.footer-bottom .footer-copyright {
+  margin: 0;
+  font-size: var(--text-sm);
+}
+
 /* Footer links section */
 .footer-links {
   display: flex;
@@ -168,7 +180,7 @@
 
 @media screen and (min-width: 900px) {
   .footer-social {
-    align-items: flex-start;
+    align-items: center;
   }
 }
 

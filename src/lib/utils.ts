@@ -3,18 +3,18 @@
  */
 
 // Site configuration
-export const SITE_URL = 'https://mldangelo.com';
-export const AUTHOR_NAME = "Michael D'Angelo";
-export const TWITTER_HANDLE = '@dangelosaurus';
-export const SITE_IMAGE_PATH = '/images/me.jpg';
+export const SITE_URL = 'https://anyi667.xyz';
+export const AUTHOR_NAME = 'AnYi';
+export const TWITTER_HANDLE = '';
+export const SITE_IMAGE_PATH = '';
 export const SITE_IMAGE_DIMENSIONS = {
-  width: 1024,
-  height: 1024,
+  width: 0,
+  height: 0,
 } as const;
 
 // Canonical one-line bio, shared across page metadata, OpenGraph, and JSON-LD.
 export const SITE_DESCRIPTION =
-  'Member of the Technical Staff at OpenAI, working on Promptfoo and agent security. Previously co-founded Promptfoo, Arthena, and Matroid, and led engineering at Smile ID.';
+  'AnYi 的个人网站。';
 
 // Image dimension constants
 export const AVATAR_SIZE = {
@@ -39,7 +39,7 @@ export function formatDate(dateStr: string): string {
   if (!dateStr) return '';
   // Parse as UTC to avoid timezone shifts
   const date = new Date(`${dateStr}T12:00:00`);
-  return date.toLocaleDateString('en-US', {
+  return date.toLocaleDateString('zh-CN', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',

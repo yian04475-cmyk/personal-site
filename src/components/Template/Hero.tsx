@@ -1,8 +1,13 @@
-import Link from 'next/link';
+'use client';
 
+import Link from 'next/link';
 import ThemePortrait from './ThemePortrait';
 
 export default function Hero() {
+  const openMenu = () => {
+    document.getElementById('hamburger-nav')?.querySelector('button')?.click();
+  };
+
   return (
     <section className="hero">
       <div className="hero-content">
@@ -11,36 +16,25 @@ export default function Hero() {
         </div>
 
         <h1 className="hero-title">
-          <span className="hero-name">Michael D&apos;Angelo</span>
+          <span className="hero-name">AnYi</span>
         </h1>
 
-        <p className="hero-tagline">
-          Member of the Technical Staff at{' '}
-          <a href="https://openai.com" className="hero-highlight">
-            OpenAI
-          </a>
-          , where I work on{' '}
-          <a href="https://promptfoo.dev" className="hero-highlight">
-            Promptfoo
-          </a>{' '}
-          and agent security.
-          <br />
-          Previously co-founded, scaled, and sold Promptfoo to OpenAI.
-        </p>
-
         <div className="hero-chips">
-          <span className="hero-chip">YC Alum</span>
-          <span className="hero-chip">Stanford ICME</span>
-          <span className="hero-chip">Co-founded Arthena & Matroid</span>
+          <span className="hero-chip">个人网站建站</span>
         </div>
 
-        <div className="hero-cta">
+        {/* Desktop: normal links */}
+        <div className="hero-cta hero-cta-desktop">
           <Link href="/about" className="button">
-            About Me
+            了解更多
           </Link>
-          <Link href="/resume" className="button button-secondary">
-            View Resume
-          </Link>
+        </div>
+
+        {/* Mobile: open nav menu */}
+        <div className="hero-cta hero-cta-mobile">
+          <button type="button" className="button" onClick={openMenu}>
+            了解更多
+          </button>
         </div>
       </div>
 

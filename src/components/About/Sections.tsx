@@ -93,19 +93,6 @@ export default function AboutContent({ markdown }: AboutContentProps) {
           <Markdown>{intro}</Markdown>
         </div>
       ) : null}
-      {sections.length > 0 ? (
-        <nav className="about-section-nav" aria-label="About sections">
-          {sections.map((section) => (
-            <a
-              key={section.id}
-              href={`#${section.id}`}
-              className="about-section-nav-link"
-            >
-              {section.title}
-            </a>
-          ))}
-        </nav>
-      ) : null}
       {sections.map((section) => (
         <section
           key={section.id}

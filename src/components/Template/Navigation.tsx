@@ -18,10 +18,6 @@ export default function Navigation() {
 
   return (
     <header className="site-header">
-      <Link href="/" className="site-logo">
-        <span className="logo-text">MD</span>
-      </Link>
-
       <nav className="nav-links">
         {routes
           .filter((l) => !l.index)

@@ -26,13 +26,13 @@ export const PERSON_ID = `${SITE_URL}/#person`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 export const BLOG_ID = `${SITE_URL}/writing/#blog`;
 
-export const SITE_LANGUAGE = 'en-US';
+export const SITE_LANGUAGE = 'zh-CN';
 export const SITE_IMAGE = `${SITE_URL}${SITE_IMAGE_PATH}`;
 export const HOME_URL = `${SITE_URL}/`;
 
 // Shared so the /writing metadata and the Blog node stay in sync.
 export const WRITING_DESCRIPTION =
-  'Articles on AI security, LLM red teaming, and trust & safety.';
+  'AnYi 的动态 — 记录学习笔记、技术分享和个人思考。';
 
 type SchemaNode = Record<string, unknown>;
 
@@ -65,15 +65,17 @@ export function personNode(): SchemaNode {
 
   const currentJob = work[0];
 
-  const [givenName, ...familyParts] = AUTHOR_NAME.split(' ');
-  const familyName = familyParts.join(' ');
+  // Handle Chinese names (no space between family and given name)
+  const nameParts = AUTHOR_NAME.split(' ');
+  const givenName = nameParts.length > 1 ? nameParts[0] : AUTHOR_NAME;
+  const familyName = nameParts.length > 1 ? nameParts.slice(1).join(' ') : '';
 
   return {
     '@type': 'Person',
     '@id': PERSON_ID,
     name: AUTHOR_NAME,
-    givenName,
-    familyName,
+    ...(givenName !== AUTHOR_NAME ? { givenName } : {}),
+    ...(familyName ? { familyName } : {}),
     url: HOME_URL,
     image: {
       '@type': 'ImageObject',
@@ -84,14 +86,16 @@ export function personNode(): SchemaNode {
       caption: AUTHOR_NAME,
     },
     description: SITE_DESCRIPTION,
-    jobTitle: currentJob.position,
+    ...(currentJob ? {
+      jobTitle: currentJob.position,
+      worksFor: {
+        '@type': 'Organization',
+        name: currentJob.name,
+        url: currentJob.url,
+      },
+    } : {}),
     ...(email && { email }),
     sameAs: socialLinks,
-    worksFor: {
-      '@type': 'Organization',
-      name: currentJob.name,
-      url: currentJob.url,
-    },
     alumniOf: degrees.map((degree) => ({
       '@type': 'CollegeOrUniversity',
       name: degree.school,
@@ -110,7 +114,7 @@ export function websiteNode(): SchemaNode {
     '@id': WEBSITE_ID,
     url: HOME_URL,
     name: AUTHOR_NAME,
-    alternateName: ['mldangelo.com', 'mldangelo'],
+    alternateName: ['dengzhaojun.com', 'dengzhaojun'],
     description: SITE_DESCRIPTION,
     inLanguage: SITE_LANGUAGE,
     publisher: personRef(),
@@ -197,7 +201,7 @@ export function blogNode(dateModified?: string): SchemaNode {
     '@id': BLOG_ID,
     isPartOf: websiteRef(),
     mainEntityOfPage: { '@id': `${SITE_URL}/writing/#webpage` },
-    name: `${AUTHOR_NAME}'s Writing`,
+    name: `${AUTHOR_NAME} 的博客`,
     description: WRITING_DESCRIPTION,
     inLanguage: SITE_LANGUAGE,
     ...(dateModified ? { dateModified } : {}),

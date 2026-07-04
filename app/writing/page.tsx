@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { SchemaGraph } from '@/components/Schema';
+import PostImages from "@/components/Writing/PostImages";
+import PostContent from '@/components/Writing/PostContent';
 import PageWrapper from '@/components/Template/PageWrapper';
 import writing from '@/data/writing';
 import { createPageMetadata } from '@/lib/metadata';
@@ -19,7 +20,7 @@ const WRITING_URL = `${SITE_URL}/writing/`;
 
 export const metadata: Metadata = {
   ...createPageMetadata({
-    title: 'Writing',
+    title: '动态',
     description: WRITING_DESCRIPTION,
     path: '/writing/',
   }),
@@ -30,84 +31,23 @@ export const metadata: Metadata = {
   },
 };
 
-interface UnifiedItem {
-  title: string;
-  url: string;
-  date: string;
-  description: string;
-  isExternal: boolean;
-}
-
-// Extracted component to reduce duplication
-interface WritingItemProps {
-  item: UnifiedItem;
-  showDate?: boolean;
-}
-
-function WritingItem({ item, showDate = true }: WritingItemProps) {
-  const content = (
-    <>
-      {showDate && item.date && (
-        <time className="writing-date" dateTime={item.date}>
-          {formatDate(item.date)}
-        </time>
-      )}
-      <h2 className="writing-title">{item.title}</h2>
-      <p className="writing-description">{item.description}</p>
-      {item.isExternal && (
-        <span className="writing-external" aria-hidden="true">
-          ↗
-        </span>
-      )}
-    </>
-  );
-
-  if (item.isExternal) {
-    return (
-      <a
-        href={item.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="writing-item"
-      >
-        {content}
-      </a>
-    );
-  }
-
-  return (
-    <Link href={item.url} className="writing-item">
-      {content}
-    </Link>
-  );
-}
-
 export default function WritingPage() {
-  // Get internal posts from markdown files
   const internalPosts = getAllPosts();
-  const internalItems: UnifiedItem[] = internalPosts.map((post) => ({
-    title: post.title,
-    url: `/writing/${post.slug}`,
-    date: post.date,
-    description: post.description,
-    isExternal: false,
-  }));
 
-  // Get external articles from data file
-  const externalItems: UnifiedItem[] = writing.map((item) => ({
+  // External articles
+  const externalItems = writing.map((item) => ({
     ...item,
     isExternal: true,
   }));
 
-  // Merge and sort all items
-  const allItems = [...internalItems, ...externalItems];
-  const dated = allItems
-    .filter((item) => item.date)
+  // Merge and sort
+  const allItems = [
+    ...internalPosts.map((post) => ({ ...post, isExternal: false })),
+    ...externalItems,
+  ].filter((item) => item.date)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  const undated = allItems.filter((item) => !item.date);
 
-  // Newest dated entry across internal posts and external articles.
-  const latestPostDate = dated[0]?.date;
+  const latestPostDate = allItems[0]?.date;
 
   return (
     <PageWrapper>
@@ -115,45 +55,51 @@ export default function WritingPage() {
         nodes={[
           collectionPageNode({
             url: WRITING_URL,
-            name: 'Writing',
+            name: '动态',
             description: WRITING_DESCRIPTION,
             hasBreadcrumb: true,
           }),
           blogNode(latestPostDate),
           breadcrumbNode(WRITING_URL, [
-            { name: 'Home', url: HOME_URL },
-            { name: 'Writing', url: WRITING_URL },
+            { name: '首页', url: HOME_URL },
+            { name: '动态', url: WRITING_URL },
           ]),
         ]}
       />
       <article className="writing-page">
         <header className="writing-header">
-          <div className="writing-header-row">
-            <h1 className="page-title">Writing</h1>
-            <a
-              href="/feed.xml"
-              className="writing-rss-link"
-              title="RSS Feed"
-              aria-label="RSS Feed"
-            >
-              RSS
-            </a>
-          </div>
+          <h1 className="page-title">动态</h1>
         </header>
 
         <div className="writing-list">
-          {dated.map((item) => (
-            <WritingItem key={item.url} item={item} />
-          ))}
+          {internalPosts.map((post) => {
+            // Extract image URLs from markdown content
+            const imgRegex = /!\[.*?\]\((.*?)\)/g;
+            const images: string[] = [];
+            let m;
+            while ((m = imgRegex.exec(post.content)) !== null) {
+              images.push(m[1]);
+            }
+            // Remove image lines from content for text rendering
+            const textContent = post.content.replace(/!\[.*?\]\(.*?\)\n*/g, '').trim();
 
-          {undated.length > 0 && (
-            <>
-              <div className="writing-section-label">Guides</div>
-              {undated.map((item) => (
-                <WritingItem key={item.url} item={item} showDate={false} />
-              ))}
-            </>
-          )}
+            return (
+            <article key={post.slug} className="writing-item-full">
+              <time className="writing-date" dateTime={post.date}>
+                {formatDate(post.date)}
+              </time>
+              <h2 className="writing-title">{post.title}</h2>
+              {images.length > 0 && (
+                <PostImages images={images} />
+              )}
+              {textContent && (
+                <div className="prose">
+                  <PostContent content={textContent} />
+                </div>
+              )}
+            </article>
+          );
+          })}
         </div>
       </article>
     </PageWrapper>
