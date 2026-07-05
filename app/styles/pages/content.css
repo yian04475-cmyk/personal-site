@@ -405,6 +405,15 @@
 }
 
 @media (max-width: 736px) {
+  .contact-info-list {
+    padding: 0 1.5rem;
+    gap: 1rem;
+  }
+  .contact-info-item {
+    font-size: var(--text-base);
+    width: 100%;
+    max-width: 18rem;
+  }
   .about-section-nav {
     margin: var(--spacing-6) 0 var(--spacing-5);
     padding: var(--spacing-3);
