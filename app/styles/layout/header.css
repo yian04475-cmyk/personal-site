@@ -18,7 +18,7 @@
   padding: 0 1.5rem;
   position: fixed;
   top: 0;
-  width: 100%;
+  width: calc(100% - var(--scrollbar-width, 0px));
   z-index: var(--z-header);
   transition: background-color var(--duration-fast) var(--ease-out);
   box-sizing: border-box;

@@ -29,23 +29,23 @@ export default function SlideMenu({
   const menuRef = useRef<HTMLDivElement>(null);
   const previousActiveElement = useRef<HTMLElement | null>(null);
 
-  // Save scroll position and lock body scroll (iOS-safe)
+  // Lock body scroll when menu is open
   useEffect(() => {
     if (!isOpen) return;
 
     const scrollY = window.scrollY;
-    const { body } = document;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 
-    body.style.position = 'fixed';
-    body.style.top = `-${scrollY}px`;
-    body.style.left = '0';
-    body.style.right = '0';
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
+    document.documentElement.style.setProperty('--scrollbar-width', `${scrollbarWidth}px`);
 
     return () => {
-      body.style.position = '';
-      body.style.top = '';
-      body.style.left = '';
-      body.style.right = '';
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+      document.documentElement.style.removeProperty('--scrollbar-width');
       window.scrollTo(0, scrollY);
     };
   }, [isOpen]);

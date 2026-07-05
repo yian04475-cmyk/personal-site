@@ -38,8 +38,8 @@
   }
 
   .icons li a:hover {
-    background-color: var(--color-accent-light);
-    color: var(--color-accent);
+    background-color: var(--color-fg);
+    color: var(--color-bg);
     transform: translateY(var(--lift-sm));
   }
 
@@ -49,11 +49,11 @@
     bottom: 120%;
     left: 50%;
     transform: translateX(-50%);
-    background: #000;
-    color: #fff;
-    font-size: 0.75em;
-    padding: 0.35em 0.8em;
-    border-radius: var(--radius-sm);
+    background: #555;
+    color: #eee;
+    font-size: 0.7em;
+    padding: 0.3em 0.7em;
+    border-radius: 4px;
     white-space: nowrap;
     pointer-events: none;
     animation: fadeIn var(--duration-fast) var(--ease-out);

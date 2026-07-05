@@ -153,6 +153,7 @@
   color: var(--color-fg);
   margin-bottom: 1.25rem;
   line-height: var(--leading-normal);
+  white-space: pre-line;
 }
 
 .project-card-tech {

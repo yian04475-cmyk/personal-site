@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Noto_Sans_SC, ZCOOL_XiaoWei } from 'next/font/google';
+import { Noto_Serif_SC } from 'next/font/google';
 import Script from 'next/script';
 
 import { SiteSchema } from '@/components/Schema';
@@ -16,7 +16,7 @@ import {
 } from '@/lib/utils';
 import './tailwind.css';
 
-const notoSans = Noto_Sans_SC({
+const notoSerif = Noto_Serif_SC({
   weight: ['400', '700'],
   subsets: ['latin'],
   variable: '--font-source-sans',
@@ -25,8 +25,8 @@ const notoSans = Noto_Sans_SC({
   adjustFontFallback: true,
 });
 
-const zcoolXiaoWei = ZCOOL_XiaoWei({
-  weight: ['400'],
+const notoSerifHeading = Noto_Serif_SC({
+  weight: ['700'],
   subsets: ['latin'],
   variable: '--font-raleway',
   display: 'swap',
@@ -100,11 +100,10 @@ export default function RootLayout({
   return (
     <html
       lang="zh-CN"
-      className={`${notoSans.variable} ${zcoolXiaoWei.variable}`}
+      className={`${notoSerif.variable} ${notoSerifHeading.variable}`}
       suppressHydrationWarning
     >
       <head>
-        {/* CSP-safe theme initialization - prevents flash on load */}
         <Script id="theme-init" strategy="beforeInteractive">
           {`(function(){try{var t=window.localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t)}else if(window.matchMedia('(prefers-color-scheme:dark)').matches){document.documentElement.setAttribute('data-theme','dark')}else{document.documentElement.setAttribute('data-theme','light')}}catch(e){}})();`}
         </Script>

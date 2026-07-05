@@ -7,8 +7,8 @@
   /* ===================
      FONT FAMILIES
      =================== */
-  --font-sans: var(--font-source-sans), 'Noto Sans SC', '思源黑体', sans-serif;
-  --font-heading: var(--font-raleway), 'ZCOOL XiaoWei', '站酷小薇', serif;
+  --font-sans: var(--font-source-sans), 'Noto Serif SC', '思源宋体', serif;
+  --font-heading: var(--font-raleway), 'Noto Serif SC', '思源宋体', serif;
   --font-mono: 'Courier New', monospace;
 
   /* ===================

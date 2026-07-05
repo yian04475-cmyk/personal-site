@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { SchemaGraph } from '@/components/Schema';
+import BackButton from '@/components/Writing/BackButton';
+import ImageSlider from '@/components/Writing/ImageSlider';
 import PageWrapper from '@/components/Template/PageWrapper';
-import PostContent from '@/components/Writing/PostContent';
 import { getPostBySlug, getPostSlugs } from '@/lib/posts';
 import {
   blogPostingNode,
@@ -27,13 +28,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = getPostBySlug(slug);
 
-  if (!post) {
-    return {
-      title: 'Post Not Found',
-    };
-  }
-
-  const url = `${SITE_URL}/writing/${post.slug}/`;
+  if (!post) return { title: 'Post Not Found' };
 
   return {
     title: post.title,
@@ -42,7 +37,7 @@ export async function generateMetadata({
       type: 'article',
       title: post.title,
       description: post.description,
-      url,
+      url: `${SITE_URL}/writing/${post.slug}/`,
       publishedTime: post.date,
       authors: [AUTHOR_NAME],
     },
@@ -58,12 +53,19 @@ export default async function PostPage({ params }: PageProps) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
 
-  if (!post) {
-    notFound();
-  }
+  if (!post) notFound();
 
   const postUrl = `${SITE_URL}/writing/${post.slug}/`;
   const writingUrl = `${SITE_URL}/writing/`;
+
+  const imgRegex = /!\[.*?\]\((.*?)\)/g;
+  const imageSources: string[] = [];
+  let m;
+  while ((m = imgRegex.exec(post.content)) !== null) {
+    imageSources.push(m[1]);
+  }
+
+  const textContent = post.content.replace(/!\[.*?\]\(.*?\)\n*/g, '').trim();
 
   return (
     <PageWrapper>
@@ -83,16 +85,30 @@ export default async function PostPage({ params }: PageProps) {
           ]),
         ]}
       />
+      <BackButton />
       <article className="post-page">
-        <header className="post-header">
-          <time className="post-date" dateTime={post.date}>
-            {formatDate(post.date)}
-          </time>
-          <h1 className="post-title">{post.title}</h1>
-          <p className="post-description">{post.description}</p>
-        </header>
-        <div className="post-content prose">
-          <PostContent content={post.content} />
+        <div className="post-top">
+          <div className="post-top-left">
+            <time className="post-date" dateTime={post.date}>
+              {formatDate(post.date)}
+            </time>
+            <h1 className="post-title">{post.title}</h1>
+          </div>
+          {imageSources.length > 0 && (
+            <div className="post-top-right">
+              <ImageSlider images={imageSources} />
+            </div>
+          )}
+        </div>
+        <div className="post-body">
+          {post.description && (
+            <p className="post-desc">{post.description}</p>
+          )}
+          {textContent && (
+            <div className="prose">
+              <p>{textContent}</p>
+            </div>
+          )}
         </div>
       </article>
     </PageWrapper>

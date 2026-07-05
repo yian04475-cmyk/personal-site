@@ -1,35 +1,36 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import data from '@/data/contact';
 
 export default function ContactIcons() {
-  const [copiedText, setCopiedText] = useState<string | null>(null);
+  const [copiedLabel, setCopiedLabel] = useState<string | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(null);
 
   const handleCopy = async (
     e: React.MouseEvent,
     item: (typeof data)[number],
   ) => {
     e.preventDefault();
-    if (item.copyText) {
-      try {
-        await navigator.clipboard.writeText(item.copyText);
-        setCopiedText(`${item.label}: ${item.copyText}`);
-        setTimeout(() => setCopiedText(null), 2000);
-      } catch {
-        setCopiedText(`${item.label}: ${item.copyText}`);
-        setTimeout(() => setCopiedText(null), 3000);
-      }
+    if (!item.copyText) return;
+
+    try {
+      await navigator.clipboard.writeText(item.copyText);
+    } catch {
+      // fallback
     }
+
+    setCopiedLabel(item.label);
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => setCopiedLabel(null), 2000);
   };
 
   return (
     <ul className="icons">
       {data.map((s) => {
         const isCopy = !!s.copyText;
-        const showCopied = copiedText?.startsWith(s.label);
 
         return (
           <li key={s.label} style={{ position: 'relative' }}>
@@ -45,8 +46,8 @@ export default function ContactIcons() {
             >
               <FontAwesomeIcon icon={s.icon} className="size-5" />
             </a>
-            {showCopied && (
-              <span className="contact-copy-tooltip">已复制 {copiedText}</span>
+            {copiedLabel === s.label && (
+              <span className="contact-copy-tooltip">Copied!</span>
             )}
           </li>
         );

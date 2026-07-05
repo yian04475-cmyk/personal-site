@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { SchemaGraph } from '@/components/Schema';
-import PostImages from "@/components/Writing/PostImages";
-import PostContent from '@/components/Writing/PostContent';
 import PageWrapper from '@/components/Template/PageWrapper';
 import writing from '@/data/writing';
 import { createPageMetadata } from '@/lib/metadata';
@@ -34,13 +33,11 @@ export const metadata: Metadata = {
 export default function WritingPage() {
   const internalPosts = getAllPosts();
 
-  // External articles
   const externalItems = writing.map((item) => ({
     ...item,
     isExternal: true,
   }));
 
-  // Merge and sort
   const allItems = [
     ...internalPosts.map((post) => ({ ...post, isExternal: false })),
     ...externalItems,
@@ -48,6 +45,17 @@ export default function WritingPage() {
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   const latestPostDate = allItems[0]?.date;
+
+  // Extract first images from markdown
+  const extractImages = (content: string): string[] => {
+    const imgRegex = /!\[.*?\]\((.*?)\)/g;
+    const images: string[] = [];
+    let m;
+    while ((m = imgRegex.exec(content)) !== null) {
+      images.push(m[1]);
+    }
+    return images;
+  };
 
   return (
     <PageWrapper>
@@ -73,32 +81,33 @@ export default function WritingPage() {
 
         <div className="writing-list">
           {internalPosts.map((post) => {
-            // Extract image URLs from markdown content
-            const imgRegex = /!\[.*?\]\((.*?)\)/g;
-            const images: string[] = [];
-            let m;
-            while ((m = imgRegex.exec(post.content)) !== null) {
-              images.push(m[1]);
-            }
-            // Remove image lines from content for text rendering
-            const textContent = post.content.replace(/!\[.*?\]\(.*?\)\n*/g, '').trim();
-
+            const images = extractImages(post.content);
             return (
-            <article key={post.slug} className="writing-item-full">
-              <time className="writing-date" dateTime={post.date}>
-                {formatDate(post.date)}
-              </time>
-              <h2 className="writing-title">{post.title}</h2>
-              {images.length > 0 && (
-                <PostImages images={images} />
-              )}
-              {textContent && (
-                <div className="prose">
-                  <PostContent content={textContent} />
-                </div>
-              )}
-            </article>
-          );
+              <Link
+                key={post.slug}
+                href={`/writing/${post.slug}`}
+                className="writing-item"
+              >
+                <time className="writing-date" dateTime={post.date}>
+                  {formatDate(post.date)}
+                </time>
+                {images.length > 0 && (
+                  <div className="writing-thumbnails">
+                    {images.slice(0, 3).map((src, i) => (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        key={i}
+                        src={src}
+                        alt=""
+                        loading="lazy"
+                        className="writing-thumb"
+                      />
+                    ))}
+                  </div>
+                )}
+                <h2 className="writing-title">{post.title}</h2>
+              </Link>
+            );
           })}
         </div>
       </article>

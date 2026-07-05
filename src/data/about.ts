@@ -2,9 +2,9 @@ export const aboutMarkdown = `# 关于我
 
 我目前正在研究前端 Web 设计的技术栈以及网站搭建。
 
-提供个人网站搭建服务，如果你有需要，<a href="/contact" class="button-inline">请联系我吧</a>。
+提供个人网站搭建服务，如果你有需要，请<a href="/contact" class="button-inline">联系我</a>吧。
 
-我觉得我的审美还不错，并且对前端挺感兴趣的。
+我觉得我的审美还行，对前端挺感兴趣的。
 
 # 故事
 
@@ -12,13 +12,13 @@ export const aboutMarkdown = `# 关于我
 
 # 喜欢
 
-Vibecoding，平时也在学前端技术栈。
+Vibecoding，没事也学学前端技术栈。
 
-游戏喜欢玩火影忍者和 CS。
+以前喜欢玩玩cs，现在没什么瘾了。
 
-喜欢吃美食。
+希望自己能坚持做一件自己想做的事。
 
-顺便赚点小钱。
+赚点钱钱。
 
 # 理想
 

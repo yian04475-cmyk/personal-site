@@ -15,10 +15,8 @@ export default function PostContent({ content }: PostContentProps) {
             component: ({ alt, src }: { alt?: string; src?: string }) => {
               if (!src) return null;
               return (
-                <a href={src || '#'} target="_blank" rel="noopener noreferrer">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={src} alt={alt || ''} loading="lazy" className="post-img" />
-                </a>
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={src} alt={alt || ''} loading="lazy" className="post-detail-img" />
               );
             },
           },

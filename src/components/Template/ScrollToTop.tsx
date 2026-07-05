@@ -9,16 +9,8 @@ import { useEffect, useRef } from 'react';
  */
 export default function ScrollToTop() {
   const pathname = usePathname();
-  const isFirstRender = useRef(true);
 
   useEffect(() => {
-    // Skip initial render to avoid unnecessary scroll on page load
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-
-    // Instant scroll to top on route change
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [pathname]);
 

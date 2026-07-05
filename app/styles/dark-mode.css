@@ -145,7 +145,8 @@
 }
 
 [data-theme='dark'] .contact-content > .icons li a:hover {
-  background: color-mix(in srgb, var(--color-accent) 20%, transparent);
+  background: var(--color-fg);
+  color: var(--color-bg);
 }
 
 [data-theme='dark'] .daterange,
@@ -200,4 +201,14 @@
 [data-theme='dark'] .prose p a:hover,
 [data-theme='dark'] .prose li a:hover {
   background-image: none;
+}
+
+
+[data-theme='dark'] .button-inline {
+  border-color: var(--color-fg);
+}
+
+[data-theme='dark'] .button-inline:hover {
+  background: var(--color-fg);
+  color: var(--color-bg) !important;
 }
